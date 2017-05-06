@@ -71,3 +71,12 @@ export default {
  
 }
 </script>
+
+
+<style>
+ .mu-appbar{
+   position: fixed;
+   top: 0;
+   z-index: 1000;
+}
+</style>

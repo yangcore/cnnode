@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <!--<router-view></router-view>-->
     <munav></munav>
+    <router-view></router-view>
     <bottom></bottom>
   </div>
 </template>
@@ -71,4 +71,5 @@ html,body{
   text-align: center;
   color: #2c3e50;
 }
+
 </style>

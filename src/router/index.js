@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import App from '@/App'
+import index from './../components/index.vue'
 
 Vue.use(Router)
 
-// export default new Router({
-//   routes: [
-//     {
-//       path: '/',
-//       name: 'app',
-//       component: App
-//     }
-//   ]
-// })
+export default new Router({
+  routes: [
+    {
+      path: '/',
+      name: 'index',
+      component: index
+    }
+  ]
+})
