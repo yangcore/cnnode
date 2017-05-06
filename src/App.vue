@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <munav></munav>
+    <div class="contant">
     <router-view></router-view>
-    <bottom></bottom>
+    </div>
+    <!--<bottom></bottom>-->
   </div>
 </template>
 
@@ -16,7 +18,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @charset "utf-8";
 @function pxx($px, $base-font-size: 75px) {
   @if (unitless($px)) {
@@ -71,5 +73,7 @@ html,body{
   text-align: center;
   color: #2c3e50;
 }
-
+.contant{
+  margin-top:54px
+}
 </style>

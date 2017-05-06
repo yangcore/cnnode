@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
+import './assets/roboto.css'
 import VueResource from 'vue-resource'
 Vue.use(MuseUI)
 Vue.use(VueResource)

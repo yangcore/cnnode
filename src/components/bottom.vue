@@ -26,7 +26,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     @charset "utf-8";
 @function pxx($px, $base-font-size: 75px) {
   @if (unitless($px)) {
