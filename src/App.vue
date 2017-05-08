@@ -1,9 +1,13 @@
 <template>
   <div id="app">
-    <munav></munav>
-    <div class="contant">
-    <router-view></router-view>
+    <div v-if="indexshow">
+      <munav v-if="indexshow"></munav>
+      <div class="contant">
+      <router-view name="a"></router-view>
+      </div>
     </div>
+      <router-view name="b"></router-view>
+
     <!--<bottom></bottom>-->
   </div>
 </template>
@@ -13,8 +17,22 @@ import munav from './components/munav'
 import bottom from './components/bottom'
 export default {
   name: 'app',
+  data(){
+    return {
+      indexshow:true
+    }
+  },
   template: ['<munav/>','<bottom/>'],
-  components: { munav ,bottom}
+  components: { munav ,bottom},
+  watch: {
+  '$route' (to, from) {
+    console.info(this.$route.path)
+    if(this.$route.path=="/"){
+      this.indexshow=true;
+    }else{
+       this.indexshow=false;
+    }
+  }}
 }
 </script>
 

@@ -4,7 +4,7 @@
      网络连接失败
     </mu-popup>
       <mu-list>
-        <mu-list-item v-for="listdata in listdatas" :key='listdata.id' :title="listdata.title">
+        <mu-list-item v-for="listdata in listdatas" :key='listdata.id' :title="listdata.title" @click="gotodetails(listdata.id)">
           <mu-avatar :src="listdata.author.avatar_url" slot="leftAvatar" />
         </mu-list-item>
       </mu-list>
@@ -61,6 +61,9 @@ export default {
       var indexObj= document.getElementById('index');
        var oPos = indexObj.offsetTop;
        window.scrollTo(0, oPos-54);
+    },
+    gotodetails(id){
+      this.$router.push({path:'/details',query:{id:id}});
     }
   },watch: {
     '$route' (to, from) {
