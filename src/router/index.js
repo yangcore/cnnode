@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import index from './../components/index.vue'
-import hello from './../components/Hello.vue'
+import indexinfo from './../components/indexinfo.vue'
 import indexdetails from './../components/indexdetails.vue'
 Vue.use(Router)
 
@@ -9,16 +8,16 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'index',
+      name: 'indexinfo',
       components:{
-       a: index
+       a: indexinfo
       }
     },
     {
       path: '/details',
       name: 'indexdetails',
       components: {
-       b : indexdetails
+       a : indexdetails
     }
     }
   ]

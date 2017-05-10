@@ -60,7 +60,7 @@ export default {
     upindex(){
       var indexObj= document.getElementById('index');
        var oPos = indexObj.offsetTop;
-       window.scrollTo(0, oPos-54);
+       window.scrollTo(0, oPos-108);
     },
     gotodetails(id){
       this.$router.push({path:'/details',query:{id:id}});

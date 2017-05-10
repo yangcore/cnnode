@@ -1,20 +1,25 @@
 <template>
-  <div id="app">
-      <router-view name="a"></router-view>
-  </div>
+    <div>
+      <munav class="munav"></munav>
+      <index></index>
+    </div>
 </template>
 
 <script>
+import munav from './index/munav'
+import index from './index/index'
 export default {
-  name: 'app',
+  name: 'indexinfo',
   data(){
     return {
+      indexshow:true
     }
   },
-  template: [],
-  components: { },
+  template: ['<munav/>','<index/>'],
+  components: { munav,index},
   watch: {
   '$route' (to, from) {
+    
   }}
 }
 </script>

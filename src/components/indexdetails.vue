@@ -3,7 +3,10 @@
         <mu-popup position="top" :overlay="false" popupClass="demo-popup-top" :open="topPopup">
             网络连接失败
         </mu-popup>
-
+         <mu-appbar title="Title">
+            <mu-icon-button icon="arrow_back" slot="left" @click='gobackindex'/>
+             <mu-icon-button  slot="right"/>
+         </mu-appbar>
         我是index详情页
     </div>
 </template>
@@ -15,9 +18,12 @@ export default {
     return {
       topPopup: false,
       listdatas:[],
+      back:''
     }
   },
   mounted () {
+      console.info(this.$route)
+    //   this.back=this.$route.path;
      this.getdetailsinfo(this.$route.query.id)
   },
   methods:{
@@ -32,12 +38,16 @@ export default {
            _this.topPopup=false;
         }, 2000);
       })
+    },
+    gobackindex(){
+        // this.$router.push(this.back);
+        // window.history.back();
+    }
+  },
+  watch:{
+      '$route' (to, from) {
+        // console.info(this.$route)
       }
-  },watch:{
-    //   '$route' (to, from) {
-    //     //   this.listdatas=[];
-    //     //   this.getdetailsinfo(this.$route.query.id)
-    //   }
   }
 }
 </script>
