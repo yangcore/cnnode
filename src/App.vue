@@ -1,21 +1,31 @@
 <template>
   <div id="app">
-      <router-view name="a"></router-view>
+    <!--<router-view name="a"></router-view>-->
+    <indexinfo v-show="indexinfoShow"></indexinfo>
+    <router-view name="b"></router-view>
   </div>
 </template>
 
 <script>
+import indexinfo from './components/indexinfo.vue'
 export default {
   name: 'app',
-  data(){
+  data() {
     return {
+      indexinfoShow:true
     }
   },
-  template: [],
-  components: { },
+  template: ['<indexinfo/>'],
+  components: { indexinfo },
   watch: {
-  '$route' (to, from) {
-  }}
+    '$route'(to, from) {
+     if(this.$route.path=="/"){
+       this.indexinfoShow=true;
+     }else{
+      this.indexinfoShow=false;
+     }
+    }
+  }
 }
 </script>
 
@@ -60,10 +70,13 @@ export default {
   padding: 0;
   margin: 0;
 }
-html,body{
+
+html,
+body {
   height: 100%;
   width: 100%;
 }
+
 #app {
   width: 100%;
   height: 100%;
@@ -74,5 +87,4 @@ html,body{
   text-align: center;
   color: #2c3e50;
 }
-
 </style>

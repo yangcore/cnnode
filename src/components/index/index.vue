@@ -4,7 +4,7 @@
      网络连接失败
     </mu-popup>
       <mu-list>
-        <mu-list-item v-for="listdata in listdatas" :key='listdata.id' :title="listdata.title" @click="gotodetails(listdata.id)">
+        <mu-list-item v-for="listdata in listdatas" :key='listdata.id' :title="listdata.title" @click="gotodetails(listdata.id,listdata.title)">
           <mu-avatar :src="listdata.author.avatar_url" slot="leftAvatar" />
         </mu-list-item>
       </mu-list>
@@ -25,11 +25,22 @@ export default {
       scroller: null,
       page:1,
       limit:20,
-      tab:''
+      tab:'',
     }
   }, mounted() {
-     this.getIndexData(this.page,this.limit);
+    var _this=this;
+    if(JSON.stringify(_this.$route.query)!=="{}"){
+       
+        this.initroute();
+    }else{
+      this.getIndexData(this.page,this.limit);
+    }
      this.scroller = window;
+        // if( sessionStorage.getItem(this.$route.query.type)){
+        //   setTimeout(function(){
+        //      window.scrollTo(0,sessionStorage.getItem(_this.$route.query.type));
+        //   },500)
+        // }
   }, methods: {
     getIndexData(page,limit,callback,tab) {
       this.$http.get("https://cnodejs.org/api/v1/topics", { params: { page: page, limit: limit ,tab:tab} }).then(e => {
@@ -62,12 +73,11 @@ export default {
        var oPos = indexObj.offsetTop;
        window.scrollTo(0, oPos-108);
     },
-    gotodetails(id){
-      this.$router.push({path:'/details',query:{id:id}});
-    }
-  },watch: {
-    '$route' (to, from) {
-       this.listdatas=[];
+    gotodetails(id,title){
+      this.$router.push({path:'/details',query:{id:id,title:title,path:this.$route.path,type:this.$route.query.type}});
+    },
+    initroute(){
+        this.listdatas=[];
       if(this.$route.query.type=="All"){
         this.page=1;
         this.tab=''
@@ -97,6 +107,42 @@ export default {
         this.tab='job'
         this.getIndexData(this.page,this.limit,'',this.tab);
       }
+    }
+
+  },watch: {
+    '$route' (to, from) {
+      console.info('路由中',this.$route)
+      this.initroute();
+      //  this.listdatas=[];
+      // if(this.$route.query.type=="All"){
+      //   this.page=1;
+      //   this.tab=''
+      //   this.getIndexData(this.page,this.limit,'','');
+      // }
+
+      // if(this.$route.query.type=="Essence"){
+      //   this.page=1;
+      //   this.tab='good'
+      //   this.getIndexData(this.page,this.limit,'',this.tab);
+      // }
+      
+      // if(this.$route.query.type=="Share"){
+      //   this.page=1;
+      //   this.tab='share'
+      //   this.getIndexData(this.page,this.limit,'',this.tab);
+      // }
+      
+      // if(this.$route.query.type=="Question"){
+      //   this.page=1;
+      //   this.tab='ask'
+      //   this.getIndexData(this.page,this.limit,'',this.tab);
+      // }
+      
+      // if(this.$route.query.type=="Recruit"){
+      //   this.page=1;
+      //   this.tab='job'
+      //   this.getIndexData(this.page,this.limit,'',this.tab);
+      // }
     }
   }
 }

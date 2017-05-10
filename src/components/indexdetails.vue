@@ -1,9 +1,9 @@
 <template>
-    <div class="indexdetails">
+    <div class="indexdetails" v-show="hidedetails">
         <mu-popup position="top" :overlay="false" popupClass="demo-popup-top" :open="topPopup">
             网络连接失败
         </mu-popup>
-         <mu-appbar title="Title">
+         <mu-appbar :title="title">
             <mu-icon-button icon="arrow_back" slot="left" @click='gobackindex'/>
              <mu-icon-button  slot="right"/>
          </mu-appbar>
@@ -18,14 +18,19 @@ export default {
     return {
       topPopup: false,
       listdatas:[],
-      back:''
+      back:'',
+      title:'',
+      prePath:'',
+      preType:'',
+      hidedetails:true
     }
   },
   mounted () {
-      console.info(this.$route)
-    //   this.back=this.$route.path;
-     this.getdetailsinfo(this.$route.query.id)
-  },
+     this.getdetailsinfo(this.$route.query.id);
+     this.title=this.$route.query.title;
+     this.prePath=this.$route.query.path;
+     this.preType=this.$route.query.type;
+    },
   methods:{
       getdetailsinfo(id){
           this.$http.get("https://cnodejs.org/api/v1/topic/"+id).then(e => {
@@ -40,13 +45,12 @@ export default {
       })
     },
     gobackindex(){
-        // this.$router.push(this.back);
-        // window.history.back();
+        this.hidedetails=false;
+        this.$router.push({path:'/',query:{}});
     }
   },
   watch:{
       '$route' (to, from) {
-        // console.info(this.$route)
       }
   }
 }
