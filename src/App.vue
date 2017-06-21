@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!--<router-view name="a"></router-view>-->
-    <indexinfo v-show="indexinfoShow"></indexinfo>
+    <indexinfo  class="top-list"></indexinfo>
     <router-view name="b"></router-view>
   </div>
 </template>
@@ -20,9 +20,10 @@ export default {
   watch: {
     '$route'(to, from) {
      if(this.$route.path=="/"){
-       this.indexinfoShow=true;
+      //  this.indexinfoShow=true;
+            // window.scrollTo(0,sessionStorage.getItem(this.$route.query.type==undefined?"All":this.$route.query.type))
      }else{
-      this.indexinfoShow=false;
+      // this.indexinfoShow=false;
      }
     }
   }
@@ -79,12 +80,20 @@ body {
 
 #app {
   width: 100%;
-  height: 100%;
   margin: 0 auto;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.top-list{
+  position: absolute;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 </style>

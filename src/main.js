@@ -7,13 +7,14 @@ import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 import './assets/roboto.css'
 import VueResource from 'vue-resource'
+import vuet from './vuet'
 Vue.use(MuseUI)
 Vue.use(VueResource)
 Vue.config.productionTip = false
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  vuet,
   router,
   template: '<App/>',
   components: { App }

@@ -1,12 +1,10 @@
 <template>
     <div>
-      <munav class="munav"></munav>
       <index></index>
     </div>
 </template>
 
 <script>
-import munav from './index/munav'
 import index from './index/index'
 export default {
   name: 'indexinfo',
@@ -15,8 +13,8 @@ export default {
       indexshow:true
     }
   },
-  template: ['<munav/>','<index/>'],
-  components: { munav,index},
+  template: ['<index/>'],
+  components: { index},
   watch: {
   '$route' (to, from) {
     

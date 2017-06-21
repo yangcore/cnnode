@@ -46,7 +46,11 @@ export default {
     },
     gobackindex(){
         this.hidedetails=false;
-        this.$router.push({path:'/',query:{}});
+        if( !this.preType){
+         this.$router.push({path:'/',query:{type:'All'}});
+        }else{
+         this.$router.push({path:'/',query:{type:this.preType}});    
+        }
     }
   },
   watch:{
@@ -71,5 +75,15 @@ export default {
     justify-content: center;
     max-width: 375px;
     font-size: 20px;
+}
+
+.indexdetails{
+    position: absolute;
+    top: 0;
+    z-index: 101;
+    background: white;
+    min-height: 100%;
+    width: 100%;
+    /*display: none;*/
 }
 </style>
