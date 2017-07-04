@@ -70,8 +70,7 @@ export default {
     }
   }, mounted() {
     this.goIndex(this.$route.query.type);
-    var munavobj = document.getElementById('munav');
-    this.munavobjTop = munavobj.offsetTop;
+    this.munavobjTop = document.querySelector('.mu-list').scrollTop;
 
     var _this = this;
     if (JSON.stringify(_this.$route.query) !== "{}") {
@@ -109,6 +108,9 @@ export default {
     },
     upindex() {
       document.querySelector('.top-list').scrollTop='0px';
+      var x=JSON.parse(sessionStorage.getItem(this.$route.query.type));
+          x.top='0';
+          sessionStorage.setItem(this.$route.query.type,JSON.stringify(x));
     },
     gotodetails(id, title) {
       this.$router.push({ path: '/details', query: { id: id, title: title, path: this.$route.path, type: this.$route.query.type } });
@@ -120,8 +122,7 @@ export default {
           var seobj=JSON.parse(sessionStorage.getItem(this.$route.query.type));
            this.page =seobj.page;
            this.listdatas=seobj.data;
-
-           document.querySelector('.top-list').scrollTop=seobj.top+'px';
+           document.querySelector('.top-list').scrollTop=seobj.top;
         }else{
           this.page = 1;
           this.tab = ''
@@ -131,27 +132,55 @@ export default {
       }
 
       if (this.$route.query.type == "Essence") {
+         if(sessionStorage.getItem(this.$route.query.type) && JSON.parse(sessionStorage.getItem(this.$route.query.type)).data.length>0){
+          var seobj=JSON.parse(sessionStorage.getItem(this.$route.query.type));
+           this.page =seobj.page;
+           this.listdatas=seobj.data;
+           document.querySelector('.top-list').scrollTop=seobj.top;
+        }else{
         this.page = 1;
         this.tab = 'good'
         this.getIndexData(this.page, this.limit, '', this.tab);
+        }
       }
 
       if (this.$route.query.type == "Share") {
+         if(sessionStorage.getItem(this.$route.query.type) && JSON.parse(sessionStorage.getItem(this.$route.query.type)).data.length>0){
+          var seobj=JSON.parse(sessionStorage.getItem(this.$route.query.type));
+           this.page =seobj.page;
+           this.listdatas=seobj.data;
+           document.querySelector('.top-list').scrollTop=seobj.top;
+        }else{
         this.page = 1;
         this.tab = 'share'
         this.getIndexData(this.page, this.limit, '', this.tab);
+        }
       }
 
       if (this.$route.query.type == "Question") {
+         if(sessionStorage.getItem(this.$route.query.type) && JSON.parse(sessionStorage.getItem(this.$route.query.type)).data.length>0){
+          var seobj=JSON.parse(sessionStorage.getItem(this.$route.query.type));
+           this.page =seobj.page;
+           this.listdatas=seobj.data;
+           document.querySelector('.top-list').scrollTop=seobj.top;
+        }else{
         this.page = 1;
         this.tab = 'ask'
         this.getIndexData(this.page, this.limit, '', this.tab);
+        }
       }
 
       if (this.$route.query.type == "Recruit") {
+         if(sessionStorage.getItem(this.$route.query.type) && JSON.parse(sessionStorage.getItem(this.$route.query.type)).data.length>0){
+          var seobj=JSON.parse(sessionStorage.getItem(this.$route.query.type));
+           this.page =seobj.page;
+           this.listdatas=seobj.data;
+           document.querySelector('.top-list').scrollTop=seobj.top;
+        }else{
         this.page = 1;
         this.tab = 'job'
         this.getIndexData(this.page, this.limit, '', this.tab);
+        }
       }
     }, //选择tab
     handleTabChange(val) {
@@ -205,8 +234,19 @@ export default {
       var _this = this;
       this.$nextTick(function () {
      document.querySelector('.top-list').onscroll = function () {
-          this.scrolltop = document.querySelector('.top-list').scrollTop;
+         this.scrolltop = document.querySelector('.top-list').scrollTop;
+            if( this.scrolltop=="0"){
+              if(sessionStorage.getItem(_this.$route.query.type == undefined ? 'All' : _this.$route.query.type)){
+                  this.scrolltop=JSON.parse (sessionStorage.getItem(_this.$route.query.type == undefined ? 'All' : _this.$route.query.type)).top==null?"0":JSON.parse (sessionStorage.getItem(_this.$route.query.type == undefined ? 'All' : _this.$route.query.type)).top; 
+              }else{
+                 this.scrolltop='0';
+              }
+            sessionStorage.setItem(_this.$route.query.type == undefined ? 'All' : _this.$route.query.type,  JSON.stringify({'top':this.scrolltop,'data':_this.listdatas,'page':_this.page}));
+
+          }else{
+          
           sessionStorage.setItem(_this.$route.query.type == undefined ? 'All' : _this.$route.query.type,  JSON.stringify({'top':this.scrolltop,'data':_this.listdatas,'page':_this.page}));
+          }
         };
       })
     }
@@ -270,6 +310,7 @@ export default {
 }
 .index{
   margin-top: 100px;
+  height: 100%;
 }
 .index .mu-list>div {
   border-bottom: 1px solid #e8e8e8
@@ -296,5 +337,8 @@ export default {
   position: fixed;
   bottom: 10%;
   right: 5%;
+}
+.mu-list{
+  height: 100%;
 }
 </style>

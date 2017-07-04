@@ -3,11 +3,12 @@
         <mu-popup position="top" :overlay="false" popupClass="demo-popup-top" :open="topPopup">
             网络连接失败
         </mu-popup>
-         <mu-appbar :title="title">
+         <mu-appbar :title="title" class="detailsHeader">
             <mu-icon-button icon="arrow_back" slot="left" @click='gobackindex'/>
              <mu-icon-button  slot="right"/>
          </mu-appbar>
-        我是index详情页
+         <div v-html="detailsHtml" class="content">  
+         </div>
     </div>
 </template>
 
@@ -17,12 +18,12 @@ export default {
   data () {
     return {
       topPopup: false,
-      listdatas:[],
       back:'',
       title:'',
       prePath:'',
       preType:'',
-      hidedetails:true
+      hidedetails:true,
+      detailsHtml:''
     }
   },
   mounted () {
@@ -34,8 +35,9 @@ export default {
   methods:{
       getdetailsinfo(id){
           this.$http.get("https://cnodejs.org/api/v1/topic/"+id).then(e => {
-          this.listdatas=this.listdatas.concat(e.body.data);
           this.topPopup=false;
+          this.detailsHtml=e.body.data.content;
+
       }, e => {
         var _this=this;
         this.topPopup=true;
@@ -61,7 +63,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style >
 .demo-popup-top {
     width: 100%;
     top: 0% !important;
@@ -85,5 +87,22 @@ export default {
     min-height: 100%;
     width: 100%;
     /*display: none;*/
+}
+
+.markdown-text img{
+    width: 90%;
+    display: block;
+    margin: 0 auto;
+}
+.content{
+    width: 94%;
+    padding: 2%;
+    margin: 0 auto;
+    background-color: #e1e1e1;
+    margin-top: 60px;
+}
+.detailsHeader{
+    position: fixed;
+    top: 0;
 }
 </style>

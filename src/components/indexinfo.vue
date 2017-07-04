@@ -1,6 +1,6 @@
 <template>
-    <div>
-      <index></index>
+    <div >
+      <index style="height:100%"></index>
     </div>
 </template>
 
